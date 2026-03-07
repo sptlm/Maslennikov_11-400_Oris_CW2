@@ -1,33 +1,19 @@
 package kfu.itis.maslennikov.repository;
 
 import kfu.itis.maslennikov.model.User;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import java.util.Optional;
 
-@Component
-public class UserRepository {
+@Repository
+public interface UserRepository extends JpaRepository<User, Long> {
+    Optional<User> findByUsername(String username);
 
-    private final SessionFactory sessionFactory;
+    @Query(value = "select u from User u where u.username = :username")
+    Optional<User> getByUsername(String username);
 
-    public UserRepository(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
-
-    @Transactional(readOnly = true)
-    public List<User> findAll(){
-        Session session;
-        try{
-            session = sessionFactory.getCurrentSession();
-        } catch (HibernateException e){
-            session = sessionFactory.openSession();
-        }
-
-        return session.createQuery("from User").list();
-    }
-
+    @Query(value = "select * from users u where u.username = ?1", nativeQuery = true)
+    Optional<User> getByUsernameNative(String username);
 }
