@@ -1,57 +1,30 @@
 plugins {
     id("java")
-    id("application")
-    id("war")
+    id("org.springframework.boot") version "3.4.4"
+    id("io.spring.dependency-management") version "1.1.7"
 }
 
 group = "kfu.itis.maslennikov"
 version = "1.0-SNAPSHOT"
 
-val springVersion: String by project
-val springDataVersion: String by project
 val springSecurityVersion: String by project
-val jakartaVersion: String by project
-val hibernateVersion: String by project
 val postgresVersion: String by project
-val freemarkerVersion: String by project
-val hikariVersion: String by project
-val jacksonVersion: String by project
-
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    implementation("org.springframework:spring-webmvc:${springVersion}")
-    implementation("org.springframework:spring-jdbc:${springVersion}")
-    implementation("org.springframework:spring-orm:${springVersion}")
-    implementation("org.springframework:spring-context-support:${springVersion}")
-    implementation("org.springframework.data:spring-data-jpa:${springDataVersion}")
-    implementation("org.springframework.security:spring-security-core:${springSecurityVersion}")
-    implementation("org.springframework.security:spring-security-web:${springSecurityVersion}")
-    implementation("org.springframework.security:spring-security-config:${springSecurityVersion}")
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation("org.springframework.boot:spring-boot-starter-security")
+    implementation("org.postgresql:postgresql:$postgresVersion")
+    implementation("org.springframework.boot:spring-boot-starter-freemarker")
+    implementation("org.springframework.boot:spring-boot-starter-mail")
+    implementation("javax.mail:javax.mail-api:1.6.2")
     implementation("org.springframework.security:spring-security-taglibs:${springSecurityVersion}")
-
-    implementation("jakarta.servlet:jakarta.servlet-api:$jakartaVersion")
-    implementation("org.hibernate.orm:hibernate-core:${hibernateVersion}")
-    implementation("org.postgresql:postgresql:${postgresVersion}")
-
-    implementation("org.freemarker:freemarker:${freemarkerVersion}")
-    implementation("com.zaxxer:HikariCP:${hikariVersion}")
-
-    implementation("com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}")
-
-
-//    testImplementation(platform("org.junit:junit-bom:5.10.0"))
-//    testImplementation("org.junit.jupiter:junit-jupiter")
-}
-
-application{
-    mainClass = "kfu.itis.maslennikov.Main"
 }
 
 tasks.test {
     useJUnitPlatform()
 }
-

@@ -1,4 +1,4 @@
-package kfu.itis.maslennikov.service;
+package kfu.itis.maslennikov.service.impl;
 
 import org.springframework.stereotype.Service;
 

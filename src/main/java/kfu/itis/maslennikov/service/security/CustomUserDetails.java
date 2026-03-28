@@ -1,4 +1,4 @@
-package kfu.itis.maslennikov.service;
+package kfu.itis.maslennikov.service.security;
 
 import kfu.itis.maslennikov.model.User;
 import org.springframework.security.core.GrantedAuthority;
@@ -6,7 +6,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.stream.Collectors;
 
 public class CustomUserDetails implements UserDetails {
@@ -32,5 +31,10 @@ public class CustomUserDetails implements UserDetails {
     @Override
     public String getUsername() {
         return user.getUsername();
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return user.isEnabled();
     }
 }

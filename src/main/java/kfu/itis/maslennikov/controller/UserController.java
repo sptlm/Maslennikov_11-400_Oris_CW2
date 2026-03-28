@@ -1,9 +1,8 @@
 package kfu.itis.maslennikov.controller;
 
 import kfu.itis.maslennikov.dto.UserDto;
-import kfu.itis.maslennikov.service.UserService;
+import kfu.itis.maslennikov.service.impl.UserService;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 

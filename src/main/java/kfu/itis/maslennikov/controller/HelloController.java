@@ -1,7 +1,7 @@
 package kfu.itis.maslennikov.controller;
 
-import kfu.itis.maslennikov.service.HelloService;
-import kfu.itis.maslennikov.service.UserService;
+import kfu.itis.maslennikov.service.impl.HelloService;
+import kfu.itis.maslennikov.service.impl.UserService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;

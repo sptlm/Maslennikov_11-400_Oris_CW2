@@ -1,7 +1,7 @@
 package kfu.itis.maslennikov.controller;
 
 import kfu.itis.maslennikov.dto.RegisterDto;
-import kfu.itis.maslennikov.service.UserService;
+import kfu.itis.maslennikov.service.impl.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,7 +29,7 @@ public class RegisterController {
     public String register(@ModelAttribute("registerDto") RegisterDto registerDto, Model model) {
         try {
             userService.register(registerDto);
-            return "redirect:/login";
+            return "success_sign_up"; // TODO
         } catch (IllegalArgumentException e) {
             model.addAttribute("error", e.getMessage());
             return "register";

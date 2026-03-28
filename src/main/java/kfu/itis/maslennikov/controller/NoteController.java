@@ -2,7 +2,7 @@ package kfu.itis.maslennikov.controller;
 
 import kfu.itis.maslennikov.dto.NoteFormDto;
 import kfu.itis.maslennikov.model.Note;
-import kfu.itis.maslennikov.service.NoteService;
+import kfu.itis.maslennikov.service.impl.NoteService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

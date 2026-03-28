@@ -1,4 +1,4 @@
-package kfu.itis.maslennikov.service;
+package kfu.itis.maslennikov.service.impl;
 
 import kfu.itis.maslennikov.dto.NoteDto;
 import kfu.itis.maslennikov.dto.NoteFormDto;

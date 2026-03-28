@@ -1,7 +1,7 @@
 package kfu.itis.maslennikov.controller;
 
 import kfu.itis.maslennikov.dto.NoteDto;
-import kfu.itis.maslennikov.service.NoteService;
+import kfu.itis.maslennikov.service.impl.NoteService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;

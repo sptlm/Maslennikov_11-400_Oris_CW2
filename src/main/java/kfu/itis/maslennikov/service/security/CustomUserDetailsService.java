@@ -1,4 +1,4 @@
-package kfu.itis.maslennikov.service;
+package kfu.itis.maslennikov.service.security;
 
 import kfu.itis.maslennikov.model.User;
 import kfu.itis.maslennikov.repository.UserRepository;

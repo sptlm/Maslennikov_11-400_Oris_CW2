@@ -1,5 +1,8 @@
-package kfu.itis.maslennikov.service;
+package kfu.itis.maslennikov.service.impl;
 
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
+import kfu.itis.maslennikov.config.properties.MailProperties;
 import kfu.itis.maslennikov.dto.RegisterDto;
 import kfu.itis.maslennikov.dto.UserDto;
 import kfu.itis.maslennikov.mapper.UserMapper;
@@ -7,13 +10,16 @@ import kfu.itis.maslennikov.model.Role;
 import kfu.itis.maslennikov.model.User;
 import kfu.itis.maslennikov.repository.RoleRepository;
 import kfu.itis.maslennikov.repository.UserRepository;
-import kfu.itis.maslennikov.repository.UserRepositoryHiber;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -28,15 +34,19 @@ public class UserService {
 //    }
 
     private final UserRepository userRepository;
-    private final RoleRepository roleRepository;       // +
-    private final PasswordEncoder passwordEncoder;     // +
+    private final RoleRepository roleRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final JavaMailSender mailSender;
+    private final MailProperties mailProperties;
 
     public UserService(UserRepository userRepository,
                        RoleRepository roleRepository,
-                       PasswordEncoder passwordEncoder) {
+                       PasswordEncoder passwordEncoder, JavaMailSender mailSender, MailProperties mailProperties) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
+        this.mailSender = mailSender;
+        this.mailProperties = mailProperties;
     }
 
     @Transactional
@@ -60,6 +70,8 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(userDto.getUsername()));
         return UserMapper.toDto(userRepository.save(user));
     }
+
+
 
     @Transactional
     public UserDto update(Long id, UserDto userDto) {
@@ -101,6 +113,30 @@ public class UserService {
         user.setUsername(dto.getUsername());
         user.setPassword(passwordEncoder.encode(dto.getPassword()));
         user.setRoles(List.of(userRole));
+        String verificationCode = UUID.randomUUID().toString();
+        user.setVerificationCode(verificationCode);
+        sendVerificationMail(dto, verificationCode);
         userRepository.save(user);
+    }
+
+    public void sendVerificationMail(RegisterDto registerDto, String verificationCode) {
+        MimeMessage mimeMessage = mailSender.createMimeMessage();
+        MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage);
+        String content = mailProperties.content();
+        try {
+            mimeMessageHelper.setFrom(mailProperties.from(), mailProperties.sender());
+            mimeMessageHelper.setTo(registerDto.getUsername());
+            mimeMessageHelper.setSubject(mailProperties.subject());
+
+            content = content.replace("$name", registerDto.getUsername());
+            content = content.replace("$url", mailProperties.baseUrl() +
+                    "/verification?code=" + verificationCode);
+
+            mimeMessageHelper.setText(content, true);
+
+            mailSender.send(mimeMessage);
+        } catch (MessagingException | UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
