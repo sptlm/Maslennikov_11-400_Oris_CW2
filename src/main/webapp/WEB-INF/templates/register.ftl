@@ -6,7 +6,7 @@
     <style>
         body { font-family: sans-serif; max-width: 400px; margin: 60px auto; }
         label { display: block; margin-top: 12px; }
-        input[type=text], input[type=password] {
+        input[type=text], input[type=password], input[type=email] {
             width: 100%; padding: 8px; margin-top: 4px; box-sizing: border-box;
         }
         button { margin-top: 16px; padding: 8px 20px; cursor: pointer; }
@@ -27,6 +27,10 @@
 
     <label>Имя пользователя
         <input type="text" name="username" required autofocus/>
+    </label>
+
+    <label>Email
+        <input type="email" name="email" required/>
     </label>
 
     <label>Пароль

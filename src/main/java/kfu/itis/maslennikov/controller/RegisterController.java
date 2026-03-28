@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@RequestMapping("/register")
 public class RegisterController {
 
     private final UserService userService;
@@ -19,20 +19,27 @@ public class RegisterController {
         this.userService = userService;
     }
 
-    @GetMapping
+    @GetMapping("/register")
     public String showForm(Model model) {
         model.addAttribute("registerDto", new RegisterDto());
         return "register";
     }
 
-    @PostMapping
+    @PostMapping("/register")
     public String register(@ModelAttribute("registerDto") RegisterDto registerDto, Model model) {
         try {
             userService.register(registerDto);
-            return "success_sign_up"; // TODO
+            return "success_sign_up";
         } catch (IllegalArgumentException e) {
             model.addAttribute("error", e.getMessage());
             return "register";
         }
+    }
+
+    @GetMapping("/verification")
+    public String verify(@RequestParam("code") String code, Model model) {
+        boolean verified = userService.verify(code);
+        model.addAttribute("verified", verified);
+        return "verification_result";
     }
 }

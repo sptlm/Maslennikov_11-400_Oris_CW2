@@ -8,10 +8,10 @@ import org.springframework.stereotype.Component;
 public class UserMapper {
 
     public static UserDto toDto(User user) {
-        return new UserDto(user.getId(), user.getUsername());
+        return new UserDto(user.getId(), user.getUsername(), user.getEmail());
     }
 
     public static User toEntity(UserDto dto) {
-        return new User(dto.getId(), dto.getUsername());
+        return new User(dto.getId(), dto.getUsername(), dto.getEmail());
     }
 }
