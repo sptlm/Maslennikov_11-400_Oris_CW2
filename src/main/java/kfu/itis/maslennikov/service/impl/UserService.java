@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -65,8 +66,10 @@ public class UserService {
 
     @Transactional
     public UserDto create(UserDto userDto) {
+        validateUniqueness(userDto.getUsername(), userDto.getEmail(), null);
         User user = new User();
         user.setUsername(userDto.getUsername());
+        user.setEmail(userDto.getEmail());
         user.setPassword(passwordEncoder.encode(userDto.getUsername()));
         return UserMapper.toDto(userRepository.save(user));
     }
@@ -78,7 +81,9 @@ public class UserService {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("User not found: " + id));
 
+        validateUniqueness(userDto.getUsername(), userDto.getEmail(), id);
         user.setUsername(userDto.getUsername());
+        user.setEmail(userDto.getEmail());
 
         // обновляем пароль только если передан новый
         if (userDto.getPassword() != null && !userDto.getPassword().isBlank()) {
@@ -98,9 +103,7 @@ public class UserService {
 
     @Transactional
     public void register(RegisterDto dto) {
-        if (userRepository.findByUsername(dto.getUsername()).isPresent()) {
-            throw new IllegalArgumentException("Пользователь уже существует: " + dto.getUsername());
-        }
+        validateUniqueness(dto.getUsername(), dto.getEmail(), null);
 
         Role userRole = roleRepository.findByName("ROLE_USER")
                 .orElseGet(() -> {
@@ -111,12 +114,41 @@ public class UserService {
 
         User user = new User();
         user.setUsername(dto.getUsername());
+        user.setEmail(dto.getEmail());
         user.setPassword(passwordEncoder.encode(dto.getPassword()));
         user.setRoles(List.of(userRole));
         String verificationCode = UUID.randomUUID().toString();
         user.setVerificationCode(verificationCode);
+        user.setVerified(false);
         sendVerificationMail(dto, verificationCode);
         userRepository.save(user);
+    }
+
+    @Transactional
+    public boolean verify(String verificationCode) {
+        Optional<User> userOptional = userRepository.findByVerificationCode(verificationCode);
+        if (userOptional.isEmpty()) {
+            return false;
+        }
+        User user = userOptional.get();
+        user.setVerificationCode(null);
+        user.setVerified(true);
+        userRepository.save(user);
+        return true;
+    }
+
+    private void validateUniqueness(String username, String email, Long excludedUserId) {
+        userRepository.findByUsername(username)
+                .filter(user -> !user.getId().equals(excludedUserId))
+                .ifPresent(user -> {
+                    throw new IllegalArgumentException("Имя пользователя уже занято: " + username);
+                });
+
+        userRepository.findByEmail(email)
+                .filter(user -> !user.getId().equals(excludedUserId))
+                .ifPresent(user -> {
+                    throw new IllegalArgumentException("Почта уже занята: " + email);
+                });
     }
 
     public void sendVerificationMail(RegisterDto registerDto, String verificationCode) {
@@ -125,7 +157,7 @@ public class UserService {
         String content = mailProperties.content();
         try {
             mimeMessageHelper.setFrom(mailProperties.from(), mailProperties.sender());
-            mimeMessageHelper.setTo(registerDto.getUsername());
+            mimeMessageHelper.setTo(registerDto.getEmail());
             mimeMessageHelper.setSubject(mailProperties.subject());
 
             content = content.replace("$name", registerDto.getUsername());
