@@ -16,7 +16,8 @@ spring:
     show-sql: true
 
   liquibase:
-    enabled: false
+    enabled: true
+    change-log: classpath:/db/changelog/db-changelog.xml
 
   freemarker:
     enabled: true
@@ -44,3 +45,10 @@ mail:
   from: ${spring.mail.username}
   subject: Please verify your account
   content: "Dear $name, please follow the link to verify your account: <a href=$url>VERIFY</a>"
+
+logging:
+  level:
+    org:
+      springframework:
+        security: WARN
+      liquibase: DEBUG

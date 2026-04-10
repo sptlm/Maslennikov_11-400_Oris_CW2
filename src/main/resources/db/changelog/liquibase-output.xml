@@ -1,0 +1,202 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <changeSet author="Spirit (generated)" id="1775835826180-1">
+        <createTable tableName="users">
+            <column autoIncrement="true" name="id" startWith="8" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="users_pkey"/>
+            </column>
+            <column name="username" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password_hash" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="first_name" type="VARCHAR(50)"/>
+            <column name="last_name" type="VARCHAR(50)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Spirit (generated)" id="1775835826180-2">
+        <createTable tableName="currencies">
+            <column autoIncrement="true" name="id" startWith="4" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="currencies_pkey"/>
+            </column>
+            <column name="code" type="VARCHAR(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="symbol" type="VARCHAR(5)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="exchange_rate_to_rub" type="numeric(10, 4)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Spirit (generated)" id="1775835826180-3">
+        <createTable tableName="accounts">
+            <column autoIncrement="true" name="id" startWith="7" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="accounts_pkey"/>
+            </column>
+            <column name="user_id" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="currency_id" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0.00" name="initial_balance" type="numeric(15, 2)"/>
+            <column defaultValueComputed="0.00" name="current_balance" type="numeric(15, 2)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Spirit (generated)" id="1775835826180-4">
+        <createTable tableName="categories">
+            <column autoIncrement="true" name="id" startWith="102" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="categories_pkey"/>
+            </column>
+            <column name="user_id" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type" type="VARCHAR(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="color" type="VARCHAR(7)"/>
+            <column name="icon" type="VARCHAR(50)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Spirit (generated)" id="1775835826180-5">
+        <createTable tableName="transactions">
+            <column autoIncrement="true" name="id" startWith="22" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="transactions_pkey"/>
+            </column>
+            <column name="account_id" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="category_id" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="amount" type="numeric(15, 2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type" type="VARCHAR(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="TEXT"/>
+            <column defaultValueComputed="CURRENT_DATE" name="transaction_date" type="date">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Spirit (generated)" id="1775835826180-6">
+        <createTable tableName="tags">
+            <column autoIncrement="true" name="id" startWith="13" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="tags_pkey"/>
+            </column>
+            <column name="user_id" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="color" type="VARCHAR(7)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Spirit (generated)" id="1775835826180-7">
+        <createTable tableName="transaction_tags">
+            <column name="transaction_id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="transaction_tags_pkey"/>
+            </column>
+            <column name="tag_id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="transaction_tags_pkey"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Spirit (generated)" id="1775835826180-8">
+        <addUniqueConstraint columnNames="email" constraintName="users_email_key" tableName="users"/>
+    </changeSet>
+    <changeSet author="Spirit (generated)" id="1775835826180-9">
+        <addUniqueConstraint columnNames="username" constraintName="users_username_key" tableName="users"/>
+    </changeSet>
+    <changeSet author="Spirit (generated)" id="1775835826180-10">
+        <addUniqueConstraint columnNames="code" constraintName="currencies_code_key" tableName="currencies"/>
+    </changeSet>
+    <changeSet author="Spirit (generated)" id="1775835826180-11">
+        <createIndex indexName="idx_accounts_user_id" tableName="accounts" using="btree">
+            <column name="user_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Spirit (generated)" id="1775835826180-12">
+        <createIndex indexName="idx_accounts_currency_id" tableName="accounts" using="btree">
+            <column name="currency_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Spirit (generated)" id="1775835826180-13">
+        <createIndex indexName="idx_categories_user_id" tableName="categories" using="btree">
+            <column name="user_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Spirit (generated)" id="1775835826180-14">
+        <addUniqueConstraint columnNames="user_id, name, type" constraintName="categories_user_id_name_type_key" tableName="categories"/>
+    </changeSet>
+    <changeSet author="Spirit (generated)" id="1775835826180-15">
+        <createIndex indexName="idx_transactions_account_id" tableName="transactions" using="btree">
+            <column name="account_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Spirit (generated)" id="1775835826180-16">
+        <createIndex indexName="idx_transactions_category_id" tableName="transactions" using="btree">
+            <column name="category_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Spirit (generated)" id="1775835826180-17">
+        <createIndex indexName="idx_transactions_date" tableName="transactions" using="btree">
+            <column defaultValueComputed="CURRENT_DATE" name="transaction_date"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Spirit (generated)" id="1775835826180-18">
+        <createIndex indexName="idx_tags_user_id" tableName="tags" using="btree">
+            <column name="user_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Spirit (generated)" id="1775835826180-19">
+        <addUniqueConstraint columnNames="user_id, name" constraintName="tags_user_id_name_key" tableName="tags"/>
+    </changeSet>
+    <changeSet author="Spirit (generated)" id="1775835826180-20">
+        <createIndex indexName="idx_transaction_tags_tag_id" tableName="transaction_tags" using="btree">
+            <column name="tag_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Spirit (generated)" id="1775835826180-21">
+        <addForeignKeyConstraint baseColumnNames="currency_id" baseTableName="accounts" constraintName="accounts_currency_id_fkey" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="currencies" validate="true"/>
+    </changeSet>
+    <changeSet author="Spirit (generated)" id="1775835826180-22">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="accounts" constraintName="accounts_user_id_fkey" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="users" validate="true"/>
+    </changeSet>
+    <changeSet author="Spirit (generated)" id="1775835826180-23">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="categories" constraintName="categories_user_id_fkey" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="users" validate="true"/>
+    </changeSet>
+    <changeSet author="Spirit (generated)" id="1775835826180-24">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="tags" constraintName="tags_user_id_fkey" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="users" validate="true"/>
+    </changeSet>
+    <changeSet author="Spirit (generated)" id="1775835826180-25">
+        <addForeignKeyConstraint baseColumnNames="tag_id" baseTableName="transaction_tags" constraintName="transaction_tags_tag_id_fkey" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="tags" validate="true"/>
+    </changeSet>
+    <changeSet author="Spirit (generated)" id="1775835826180-26">
+        <addForeignKeyConstraint baseColumnNames="transaction_id" baseTableName="transaction_tags" constraintName="transaction_tags_transaction_id_fkey" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="transactions" validate="true"/>
+    </changeSet>
+    <changeSet author="Spirit (generated)" id="1775835826180-27">
+        <addForeignKeyConstraint baseColumnNames="account_id" baseTableName="transactions" constraintName="transactions_account_id_fkey" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="accounts" validate="true"/>
+    </changeSet>
+    <changeSet author="Spirit (generated)" id="1775835826180-28">
+        <addForeignKeyConstraint baseColumnNames="category_id" baseTableName="transactions" constraintName="transactions_category_id_fkey" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="categories" validate="true"/>
+    </changeSet>
+</databaseChangeLog>
