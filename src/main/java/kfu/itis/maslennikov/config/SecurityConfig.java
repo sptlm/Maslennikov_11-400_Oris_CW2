@@ -21,11 +21,12 @@ public class SecurityConfig {
                 .requestMatchers("/hello").hasAnyRole("USER", "ADMIN")
                 .requestMatchers("/notes/public").permitAll()
                 .requestMatchers("/notes/**").hasAnyRole("USER", "ADMIN")
-                .requestMatchers("/admin/**", "/users/").hasRole("ADMIN")
+                .requestMatchers("/admin/**", "/users/","/users").hasRole("ADMIN")
                 .requestMatchers("/error/**").permitAll()
                 .anyRequest().authenticated()
         )
                 .csrf(csrf -> csrf.ignoringRequestMatchers("/users"))
+
                 .formLogin(Customizer.withDefaults())
                 .httpBasic(Customizer.withDefaults());
         return http.build();
