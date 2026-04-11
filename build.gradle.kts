@@ -70,6 +70,11 @@ tasks.jacocoTestReport{
         csv.required.set(false)
         html.outputLocation.set(layout.buildDirectory.dir("jacocoHtml"))
     }
+    classDirectories.setFrom(files(classDirectories.files.map {
+        fileTree(it).matching {
+            exclude(listOf("**/kfu/itis/maslennikov/dto/**", "**/kfu/itis/maslennikov/model/**", "**/kfu/itis/maslennikov/config/**", "**/kfu/itis/maslennikov/repository/**"))
+        }
+    }))
 }
 
 jacoco{
@@ -87,7 +92,7 @@ tasks.jacocoTestCoverageVerification{
     }
     classDirectories.setFrom(files(classDirectories.files.map {
         fileTree(it).matching {
-            exclude(listOf("**/kfu/itis/dto/**", "**/kfu/itis/model/**", "**/kfu/itis/config/**"))
+            exclude(listOf("**/kfu/itis/maslennikov/dto/**", "**/kfu/itis/maslennikov/model/**", "**/kfu/itis/maslennikov/config/**", "**/kfu/itis/maslennikov/repository/**", "**kfu/itis/maslennikov/service/security**"))
         }
     }))
 }

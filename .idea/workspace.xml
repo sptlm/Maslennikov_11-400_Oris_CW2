@@ -5,6 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1da338ba-4a82-484f-ab38-a9bc9ad9afb1" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/kfu/itis/maslennikov/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kfu/itis/maslennikov/config/SecurityConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/kfu/itis/maslennikov/controller/UserControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/kfu/itis/maslennikov/controller/UserControllerTest.java" afterDir="false" />
     </list>
@@ -94,54 +96,55 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Gradle.Build CW2.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.CW2 [build].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.CW2 [check].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.CW2 [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.CW2 [run].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.CW2 [testClasses].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.CW2 [test].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.CW2 [war].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Download Sources.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Load Gradle Dependencies.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.UserControllerTest.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.All in test.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.test | create user.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.test | get by id.executor&quot;: &quot;Run&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;Spring Boot.Application.executor&quot;: &quot;Run&quot;,
-    &quot;Tomcat Server.Tomcat 10.1.52.executor&quot;: &quot;Run&quot;,
-    &quot;Tomcat Server.Tomcat 9.0.109.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Spirit/Desktop/ITIS/2 курс/ОРиС/ClassWork/CW2/src/main/resources&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15527344&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.11587486&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.gradle&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Gradle.Build CW2.executor": "Run",
+    "Gradle.CW2 [build].executor": "Run",
+    "Gradle.CW2 [check].executor": "Run",
+    "Gradle.CW2 [clean].executor": "Run",
+    "Gradle.CW2 [run].executor": "Run",
+    "Gradle.CW2 [testClasses].executor": "Run",
+    "Gradle.CW2 [test].executor": "Run",
+    "Gradle.CW2 [war].executor": "Run",
+    "Gradle.Download Sources.executor": "Run",
+    "Gradle.Load Gradle Dependencies.executor": "Run",
+    "Gradle.UserControllerTest.executor": "Run",
+    "HTTP Request.All in test.executor": "Run",
+    "HTTP Request.test | create user.executor": "Run",
+    "HTTP Request.test | get by id.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "Spring Boot.Application.executor": "Run",
+    "Tomcat Server.Tomcat 10.1.52.executor": "Run",
+    "Tomcat Server.Tomcat 9.0.109.executor": "Run",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/Spirit/Desktop/CW2",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15527344",
+    "project.structure.side.proportion": "0.11587486",
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;postgresql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "postgresql"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Spirit\Desktop\CW2" />
       <recent name="C:\Users\Spirit\Desktop\ITIS\2 курс\ОРиС\ClassWork\CW2\src\main\resources" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -503,7 +506,7 @@
       <workItem from="1775886099382" duration="3263000" />
       <workItem from="1775889419606" duration="1654000" />
       <workItem from="1775891106110" duration="1888000" />
-      <workItem from="1775893044710" duration="831000" />
+      <workItem from="1775893044710" duration="2908000" />
     </task>
     <servers />
   </component>
