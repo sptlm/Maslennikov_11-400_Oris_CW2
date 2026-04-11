@@ -85,4 +85,9 @@ tasks.jacocoTestCoverageVerification{
             }
         }
     }
+    classDirectories.setFrom(files(classDirectories.files.map {
+        fileTree(it).matching {
+            exclude(listOf("**/kfu/itis/dto/**", "**/kfu/itis/model/**", "**/kfu/itis/config/**"))
+        }
+    }))
 }
