@@ -2,6 +2,8 @@ package kfu.itis.maslennikov.service.impl;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
+import kfu.itis.maslennikov.aop.Benchmarkable;
+import kfu.itis.maslennikov.aop.Metricable;
 import kfu.itis.maslennikov.config.properties.MailProperties;
 import kfu.itis.maslennikov.dto.RegisterDto;
 import kfu.itis.maslennikov.dto.UserDto;
@@ -64,6 +66,8 @@ public class UserService {
         return UserMapper.toDto(user);
     }
 
+    @Metricable
+    @Benchmarkable
     @Transactional
     public UserDto create(UserDto userDto) {
         validateUniqueness(userDto.getUsername(), userDto.getEmail(), null);

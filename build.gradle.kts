@@ -13,6 +13,7 @@ version = "1.0-SNAPSHOT"
 
 val springSecurityVersion: String by project
 val postgresVersion: String by project
+val lombokVersion: String by project
 
 repositories {
     mavenCentral()
@@ -27,6 +28,10 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-mail")
     implementation("javax.mail:javax.mail-api:1.6.2")
     implementation("org.springframework.security:spring-security-taglibs:${springSecurityVersion}")
+
+    compileOnly("org.projectlombok:lombok:${lombokVersion}")
+    annotationProcessor("org.projectlombok:lombok:${lombokVersion}")
+
     // стартер для ликвидбейза ->
     implementation("org.liquibase:liquibase-core:4.33.0")
     liquibaseRuntime("org.liquibase:liquibase-core:4.33.0")
@@ -36,14 +41,19 @@ dependencies {
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.security:spring-security-test")
-//    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.14.0")
-//    testImplementation("org.junit.jupiter:junit-jupiter-api:5.14.0")
-//    testRuntimeOnly("org.junit.platform:junit-platform-launcher:1.14.0")
+
+    implementation("org.springframework.boot:spring-boot-starter-aop")
 }
 
 val props = Properties()
 props.load(file("src/main/resources/db/liquibase.properties").inputStream())
 
+val jacocoExcludes =
+    listOf("**/kfu/itis/maslennikov/dto/**",
+        "**/kfu/itis/maslennikov/model/**",
+        "**/kfu/itis/maslennikov/config/**",
+        "**/kfu/itis/maslennikov/repository/**",
+        "**kfu/itis/maslennikov/service/security**")
 
 liquibase {
     activities.register("main") {
@@ -72,7 +82,7 @@ tasks.jacocoTestReport{
     }
     classDirectories.setFrom(files(classDirectories.files.map {
         fileTree(it).matching {
-            exclude(listOf("**/kfu/itis/maslennikov/dto/**", "**/kfu/itis/maslennikov/model/**", "**/kfu/itis/maslennikov/config/**", "**/kfu/itis/maslennikov/repository/**"))
+            exclude(jacocoExcludes)
         }
     }))
 }
@@ -92,7 +102,7 @@ tasks.jacocoTestCoverageVerification{
     }
     classDirectories.setFrom(files(classDirectories.files.map {
         fileTree(it).matching {
-            exclude(listOf("**/kfu/itis/maslennikov/dto/**", "**/kfu/itis/maslennikov/model/**", "**/kfu/itis/maslennikov/config/**", "**/kfu/itis/maslennikov/repository/**", "**kfu/itis/maslennikov/service/security**"))
+            exclude(jacocoExcludes)
         }
     }))
 }
