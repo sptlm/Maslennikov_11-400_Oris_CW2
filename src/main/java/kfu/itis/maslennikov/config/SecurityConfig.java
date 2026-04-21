@@ -22,7 +22,7 @@ public class SecurityConfig {
                 .requestMatchers("/notes/public").permitAll()
                 .requestMatchers("/notes/**").hasAnyRole("USER", "ADMIN")
                 .requestMatchers("/admin/**", "/users/","/users").hasRole("ADMIN")
-                .requestMatchers("/error/**").permitAll()
+                .requestMatchers("/error/**", "/metrics", "/benchmarks/**").permitAll()
                 .anyRequest().permitAll()
         )
                 .csrf(csrf -> csrf.ignoringRequestMatchers("/users"))
